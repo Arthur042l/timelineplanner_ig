@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>絲竹華章 - 中樂團 IG Reels 宣傳策劃與時間軸</title>
+    <title>基崇中樂 IG Planner</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -104,21 +104,23 @@
       >
         <div class="flex items-center space-x-3">
           <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-vermilion-600 via-gold-500 to-jade-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-vermilion-900/30"
+            class="w-10 h-10 rounded-xl  flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-vermilion-900/30"
           >
-            <i class="fa-solid fa-music"></i>
+          <img src="./resource/chin_orch_logo.JPG" alt="基崇中樂 Logo" class="rounded-full object-cover"></img>
+            
           </div>
+          <div class="mask-radial-at-center mask-radial-from-100% bg-[url(./resource/chin_orch_logo.JPG)] ..."></div>
           <div>
             <h1
               class="text-lg font-bold tracking-tight text-white flex items-center gap-2"
             >
-              絲竹華章
+              IG Planner
               <span
                 class="text-xs px-2 py-0.5 rounded-full bg-vermilion-500/20 text-vermilion-400 border border-vermilion-500/30 font-medium"
-                >IG Reels 排期系統</span
+                >Beta</span
               >
             </h1>
-            <p class="text-xs text-slate-400">中樂團推廣與多裝置同步協作中心</p>
+            <p class="text-xs text-slate-400">基崇中樂 IG 宣傳計畫系統</p>
           </div>
         </div>
 
@@ -732,8 +734,7 @@
                 >
               </div>
               <p class="text-slate-200 font-medium">
-                "第一視角：身為笛子手，排練前花10分鐘貼笛膜結果一吹就破的日常
-                😭"
+                "第一視角：身為笛子手，排練前花10分鐘貼笛膜結果一吹就破的日常 😭"
               </p>
             </div>
 
@@ -751,8 +752,7 @@
                 >
               </div>
               <p class="text-slate-200 font-medium">
-                "耳機裡的國樂 vs 30位演奏家現場齊奏的震撼 🔥
-                門票連結在個人檔案！"
+                "耳機裡的國樂 vs 30位演奏家現場齊奏的震撼 🔥 門票連結在個人檔案！"
               </p>
             </div>
           </div>
@@ -801,20 +801,12 @@
       let currentView = "timeline";
       let reels = [];
       let performances = [];
-      let activePerformanceId = null;
       let db = null;
       let auth = null;
 
-      // Seed Data in Traditional Chinese
-      const defaultReels = [];
-      const defaultPerformances = [];
+      const appId = typeof __app_id !== "undefined" ? __app_id : "timelineplanner_ig";
 
       async function initFirebase() {
-        // 1. App Identifier
-        const appId =
-          typeof __app_id !== "undefined" ? __app_id : "timelineplanner_ig";
-
-        // Custom config override container
         const customFirebaseConfig = {
           apiKey: "AIzaSyCHrc_pBG6hqkehF9gtCFBKJAvd12L2kXs",
           authDomain: "timelineplanner-ig.firebaseapp.com",
@@ -824,23 +816,15 @@
           appId: "1:177307342599:web:088ea4a08f3136972317a2",
         };
 
-        // Automatically use injected config if available
         const firebaseConfig =
           typeof __firebase_config !== "undefined"
-            ? JSON.parse(__firebase_config)
+            ? (typeof __firebase_config === "string" ? JSON.parse(__firebase_config) : __firebase_config)
             : customFirebaseConfig.apiKey
-              ? customFirebaseConfig
-              : null;
+            ? customFirebaseConfig
+            : null;
 
         if (!firebaseConfig) {
-          console.warn(
-            "Firebase Config not found. Falling back to local mode.",
-          );
-          reels = JSON.parse(localStorage.getItem("ensemble_ig_reels")) || [];
-          performances =
-            JSON.parse(localStorage.getItem("ensemble_ig_performances")) || [];
-          updateSyncStatus("local");
-          renderApp();
+          fallbackToLocal();
           return;
         }
 
@@ -849,7 +833,6 @@
           auth = getAuth(app);
           db = getFirestore(app);
 
-          // Authenticate before querying (Mandatory Rule 3)
           if (
             typeof __initial_auth_token !== "undefined" &&
             __initial_auth_token
@@ -860,18 +843,20 @@
           }
 
           const user = auth.currentUser;
-          if (!user) return;
+          if (!user) {
+            fallbackToLocal();
+            return;
+          }
 
-          updateSyncStatus("online");
+          updateSyncStatus("cloud");
 
-          // Subscribe to Firestore collections with strict path (Mandatory Rule 1 & Rule 2)
           const reelsRef = collection(
             db,
             "artifacts",
             appId,
             "public",
             "data",
-            "reels",
+            "reels"
           );
           const perfRef = collection(
             db,
@@ -879,7 +864,7 @@
             appId,
             "public",
             "data",
-            "performances",
+            "performances"
           );
 
           onSnapshot(
@@ -889,11 +874,12 @@
                 id: doc.id,
                 ...doc.data(),
               }));
+              localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
               renderApp();
             },
             (error) => {
               console.error("Reels snapshot error:", error);
-            },
+            }
           );
 
           onSnapshot(
@@ -903,51 +889,28 @@
                 id: doc.id,
                 ...doc.data(),
               }));
+              localStorage.setItem(
+                "ensemble_ig_performances",
+                JSON.stringify(performances)
+              );
               renderApp();
             },
             (error) => {
               console.error("Performances snapshot error:", error);
-            },
+            }
           );
         } catch (err) {
           console.error("Firebase initialization failed:", err);
-          reels = JSON.parse(localStorage.getItem("ensemble_ig_reels")) || [];
-          performances =
-            JSON.parse(localStorage.getItem("ensemble_ig_performances")) || [];
-          updateSyncStatus("local");
-          renderApp();
+          fallbackToLocal();
         }
       }
 
-      // Function to push updates to Firebase Cloud
-      async function syncToCloud() {
-        const appId =
-          typeof __app_id !== "undefined"
-            ? __app_id
-            : "chinese-ensemble-ig-planner";
-
-        // Save locally as fallback
-        localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
-        localStorage.setItem(
-          "ensemble_ig_performances",
-          JSON.stringify(performances),
-        );
-
-        if (!db) return;
-
-        try {
-          updateSyncStatus("connecting");
-          const docRef = doc(db, "app_data", appId);
-          await setDoc(docRef, {
-            reels,
-            performances,
-            updatedAt: new Date().toISOString(),
-          });
-          updateSyncStatus("cloud");
-        } catch (err) {
-          console.error("Cloud sync failed:", err);
-          updateSyncStatus("error");
-        }
+      function fallbackToLocal() {
+        reels = JSON.parse(localStorage.getItem("ensemble_ig_reels")) || [];
+        performances =
+          JSON.parse(localStorage.getItem("ensemble_ig_performances")) || [];
+        updateSyncStatus("local");
+        renderApp();
       }
 
       function updateSyncStatus(status) {
@@ -956,19 +919,19 @@
 
         if (status === "cloud") {
           container.className =
-            "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-jade-500/10 text-jade-400 border border-jade-500/30";
+            "hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-jade-500/10 text-jade-400 border border-jade-500/30";
           container.innerHTML = `<i class="fa-solid fa-cloud-check text-jade-400"></i><span>雲端已同步</span>`;
         } else if (status === "connecting") {
           container.className =
-            "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-slate-800 text-slate-400 border border-slate-700";
+            "hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-slate-800 text-slate-400 border border-slate-700";
           container.innerHTML = `<i class="fa-solid fa-arrows-rotate animate-spin text-gold-400"></i><span>雲端同步中...</span>`;
         } else if (status === "local") {
           container.className =
-            "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30";
+            "hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30";
           container.innerHTML = `<i class="fa-solid fa-hard-drive"></i><span>本地儲存模式</span>`;
         } else {
           container.className =
-            "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-rose-500/10 text-rose-400 border border-rose-500/30";
+            "hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-rose-500/10 text-rose-400 border border-rose-500/30";
           container.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>同步離線</span>`;
         }
       }
@@ -984,11 +947,10 @@
         const statusFilter =
           document.getElementById("filter-status")?.value || "all";
 
-        // Filter Reels
         const filteredReels = reels.filter((reel) => {
           const matchesSearch =
             !searchQuery ||
-            reel.title.toLowerCase().includes(searchQuery) ||
+            (reel.title && reel.title.toLowerCase().includes(searchQuery)) ||
             (reel.instrument &&
               reel.instrument.toLowerCase().includes(searchQuery)) ||
             (reel.notes && reel.notes.toLowerCase().includes(searchQuery)) ||
@@ -1003,9 +965,10 @@
           return matchesSearch && matchesPillar && matchesStatus;
         });
 
-        // Sort Reels chronologically by date & time
         filteredReels.sort((a, b) =>
-          `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`),
+          `${a.date || ""} ${a.time || ""}`.localeCompare(
+            `${b.date || ""} ${b.time || ""}`
+          )
         );
 
         const container = document.getElementById("content-container");
@@ -1037,16 +1000,14 @@
       }
 
       function updateKPIs() {
-        // Reel Stats
         document.getElementById("stat-total").innerText = reels.length;
         document.getElementById("stat-published").innerText = reels.filter(
-          (r) => r.status === "Published",
+          (r) => r.status === "Published"
         ).length;
         document.getElementById("stat-ready").innerText = reels.filter(
-          (r) => r.status === "Edited" || r.status === "Scheduled",
+          (r) => r.status === "Edited" || r.status === "Scheduled"
         ).length;
 
-        // Nearest Performance Countdown
         if (performances.length === 0) {
           document.getElementById("stat-concert-title").innerText =
             "無即將舉行之演出";
@@ -1059,16 +1020,16 @@
 
         const todayStr = new Date().toISOString().split("T")[0];
         const sortedPerf = [...performances].sort((a, b) =>
-          a.date.localeCompare(b.date),
+          (a.date || "").localeCompare(b.date || "")
         );
         const upcoming =
           sortedPerf.find((p) => p.date >= todayStr) || sortedPerf[0];
 
         if (upcoming) {
           document.getElementById("stat-concert-title").innerText =
-            upcoming.title;
+            upcoming.title || "未命名演出";
           document.getElementById("stat-concert-date").innerText =
-            upcoming.date;
+            upcoming.date || "--";
           document.getElementById("stat-concert-venue").innerText =
             upcoming.venue || "未定地點";
 
@@ -1079,7 +1040,11 @@
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           const badge = document.getElementById("stat-concert-countdown");
-          if (diffDays < 0) {
+          if (isNaN(diffDays)) {
+            badge.innerText = "未有排期";
+            badge.className =
+              "text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase";
+          } else if (diffDays < 0) {
             badge.innerText = "已結束";
             badge.className =
               "text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase";
@@ -1104,21 +1069,17 @@
 
           html += `
           <div class="relative pl-6 md:pl-8 group">
-            <!-- Timeline Node Circle -->
             <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-vermilion-500 group-hover:scale-125 transition"></div>
 
-            <!-- Mobile Date badge -->
             <div class="md:hidden text-xs font-bold text-vermilion-400 mb-1">
-              <i class="fa-regular fa-calendar-days mr-1"></i> ${reel.date} ${reel.time || ""}
+              <i class="fa-regular fa-calendar-days mr-1"></i> ${reel.date || ""} ${reel.time || ""}
             </div>
 
-            <!-- Desktop Date on Left -->
             <div class="hidden md:block absolute -left-32 top-1 w-24 text-right text-xs font-bold text-slate-400 group-hover:text-vermilion-400 transition">
-              <div>${reel.date}</div>
+              <div>${reel.date || ""}</div>
               <div class="text-[10px] text-slate-500">${reel.time || "18:30"}</div>
             </div>
 
-            <!-- Card Body -->
             <div class="glass-panel p-5 rounded-2xl space-y-3 hover:border-slate-700 transition shadow-xl">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
@@ -1130,7 +1091,7 @@
                 <div>${statusBadge}</div>
               </div>
 
-              <h4 class="text-sm font-bold text-white group-hover:text-vermilion-400 transition">${reel.title}</h4>
+              <h4 class="text-sm font-bold text-white group-hover:text-vermilion-400 transition">${reel.title || "無標題"}</h4>
 
               ${reel.notes ? `<p class="text-xs text-slate-300 bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 leading-relaxed">${reel.notes}</p>` : ""}
 
@@ -1182,10 +1143,10 @@
           <div class="w-72 glass-panel p-4 rounded-2xl flex flex-col justify-between space-y-3 relative hover:border-vermilion-500/50 transition">
             <div class="space-y-2">
               <div class="flex justify-between items-center text-[10px]">
-                <span class="font-bold text-vermilion-400"><i class="fa-regular fa-calendar-check mr-1"></i>${reel.date}</span>
+                <span class="font-bold text-vermilion-400"><i class="fa-regular fa-calendar-check mr-1"></i>${reel.date || ""}</span>
                 ${statusBadge}
               </div>
-              <h4 class="font-bold text-xs text-white line-clamp-2">${reel.title}</h4>
+              <h4 class="font-bold text-xs text-white line-clamp-2">${reel.title || "無標題"}</h4>
               <div class="flex flex-wrap gap-1">
                 ${pillarBadge}
               </div>
@@ -1218,11 +1179,11 @@
           <div class="glass-panel p-5 rounded-2xl space-y-3 flex flex-col justify-between hover:border-slate-700 transition">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-bold text-vermilion-400"><i class="fa-solid fa-clock mr-1"></i>${reel.date} ${reel.time || ""}</span>
+                <span class="text-xs font-bold text-vermilion-400"><i class="fa-solid fa-clock mr-1"></i>${reel.date || ""} ${reel.time || ""}</span>
                 ${statusBadge}
               </div>
 
-              <h4 class="text-sm font-bold text-white">${reel.title}</h4>
+              <h4 class="text-sm font-bold text-white">${reel.title || "無標題"}</h4>
 
               <div class="flex flex-wrap gap-1.5">
                 ${pillarBadge}
@@ -1261,7 +1222,7 @@
           case "Event Push":
             return `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-vermilion-500/10 text-vermilion-400 border border-vermilion-500/20"><i class="fa-solid fa-ticket mr-1"></i>票務宣傳</span>`;
           default:
-            return `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">${pillar}</span>`;
+            return `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">${pillar || "其他"}</span>`;
         }
       }
 
@@ -1279,6 +1240,9 @@
             return `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1"><i class="fa-solid fa-lightbulb"></i>點子</span>`;
         }
       }
+
+      // Explicitly attach all module scope functions to window for HTML event handlers
+      window.renderApp = renderApp;
 
       window.handleFormSubmit = async function (e) {
         e.preventDefault();
@@ -1305,7 +1269,30 @@
           reels.push(newReel);
         }
 
-        await syncToCloud();
+        localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
+
+        if (db) {
+          updateSyncStatus("connecting");
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "reels",
+              id
+            );
+            await setDoc(docRef, newReel);
+            updateSyncStatus("cloud");
+          } catch (err) {
+            console.error("Cloud save failed:", err);
+            updateSyncStatus("local");
+          }
+        } else {
+          renderApp();
+        }
+
         closeModal();
         showToast("成功", "IG Reel 排期計劃已更新！");
       };
@@ -1315,14 +1302,14 @@
         if (!reel) return;
 
         document.getElementById("form-id").value = reel.id;
-        document.getElementById("form-title").value = reel.title;
-        document.getElementById("form-date").value = reel.date;
+        document.getElementById("form-title").value = reel.title || "";
+        document.getElementById("form-date").value = reel.date || "";
         document.getElementById("form-time").value = reel.time || "18:30";
-        document.getElementById("form-pillar").value = reel.pillar;
+        document.getElementById("form-pillar").value = reel.pillar || "Money Note";
         document.getElementById("form-instrument").value =
           reel.instrument || "Guzheng (古箏)";
         document.getElementById("form-ig-link").value = reel.igLink || "";
-        document.getElementById("form-status").value = reel.status;
+        document.getElementById("form-status").value = reel.status || "Idea";
         document.getElementById("form-assignee").value = reel.assignee || "";
         document.getElementById("form-notes").value = reel.notes || "";
 
@@ -1334,7 +1321,30 @@
       window.deleteReel = async function (id) {
         if (!confirm("確定要刪除這項 Reel 排期嗎？")) return;
         reels = reels.filter((r) => r.id !== id);
-        await syncToCloud();
+        localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
+
+        if (db) {
+          updateSyncStatus("connecting");
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "reels",
+              id
+            );
+            await deleteDoc(docRef);
+            updateSyncStatus("cloud");
+          } catch (err) {
+            console.error("Cloud delete failed:", err);
+            updateSyncStatus("local");
+          }
+        } else {
+          renderApp();
+        }
+
         showToast("已刪除", "排期項目已移除");
       };
 
@@ -1358,7 +1368,33 @@
           performances.push(newPerf);
         }
 
-        await syncToCloud();
+        localStorage.setItem(
+          "ensemble_ig_performances",
+          JSON.stringify(performances)
+        );
+
+        if (db) {
+          updateSyncStatus("connecting");
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "performances",
+              id
+            );
+            await setDoc(docRef, newPerf);
+            updateSyncStatus("cloud");
+          } catch (err) {
+            console.error("Performance save failed:", err);
+            updateSyncStatus("local");
+          }
+        } else {
+          renderApp();
+        }
+
         resetPerfForm();
         renderPerformanceList();
         showToast("成功", "音樂會演出項目已保存！");
@@ -1369,8 +1405,8 @@
         if (!perf) return;
 
         document.getElementById("perf-id").value = perf.id;
-        document.getElementById("perf-title").value = perf.title;
-        document.getElementById("perf-date").value = perf.date;
+        document.getElementById("perf-title").value = perf.title || "";
+        document.getElementById("perf-date").value = perf.date || "";
         document.getElementById("perf-venue").value = perf.venue || "";
         document.getElementById("perf-notes").value = perf.notes || "";
         document.getElementById("perf-form-title").innerHTML =
@@ -1380,7 +1416,33 @@
       window.deletePerformance = async function (id) {
         if (!confirm("確定要刪除此音樂會項目嗎？")) return;
         performances = performances.filter((p) => p.id !== id);
-        await syncToCloud();
+        localStorage.setItem(
+          "ensemble_ig_performances",
+          JSON.stringify(performances)
+        );
+
+        if (db) {
+          updateSyncStatus("connecting");
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "performances",
+              id
+            );
+            await deleteDoc(docRef);
+            updateSyncStatus("cloud");
+          } catch (err) {
+            console.error("Performance delete failed:", err);
+            updateSyncStatus("local");
+          }
+        } else {
+          renderApp();
+        }
+
         renderPerformanceList();
         showToast("已刪除", "音樂會項目已成功刪除");
       };
@@ -1406,8 +1468,8 @@
           html += `
           <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
             <div>
-              <p class="font-bold text-white">${p.title}</p>
-              <p class="text-[11px] text-vermilion-400 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>${p.date} @ ${p.venue || "地點未定"}</p>
+              <p class="font-bold text-white">${p.title || "未命名演出"}</p>
+              <p class="text-[11px] text-vermilion-400 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>${p.date || "--"} @ ${p.venue || "地點未定"}</p>
             </div>
             <div class="flex items-center gap-1">
               <button onclick="editPerformance('${p.id}')" class="p-1 text-slate-400 hover:text-white"><i class="fa-solid fa-pen"></i></button>
@@ -1422,7 +1484,7 @@
       window.loadConcertCampaignTemplate = async function () {
         if (
           !confirm(
-            "這將載入為期4週的『音樂會倒數熱身宣傳』樣板，確定要新增嗎？",
+            "這將載入為期4週的『音樂會倒數熱身宣傳』樣板，確定要新增嗎？"
           )
         )
           return;
@@ -1493,7 +1555,32 @@
         ];
 
         reels = [...reels, ...presets];
-        await syncToCloud();
+        localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
+
+        if (db) {
+          updateSyncStatus("connecting");
+          try {
+            for (const preset of presets) {
+              const docRef = doc(
+                db,
+                "artifacts",
+                appId,
+                "public",
+                "data",
+                "reels",
+                preset.id
+              );
+              await setDoc(docRef, preset);
+            }
+            updateSyncStatus("cloud");
+          } catch (err) {
+            console.error("Failed to load preset to cloud:", err);
+            updateSyncStatus("local");
+          }
+        } else {
+          renderApp();
+        }
+
         showToast("範本已載入", "4週宣傳企劃範本已成功匯入排期！");
       };
 
@@ -1550,9 +1637,25 @@
       };
 
       window.copyHookText = function (element) {
-        const text = element.querySelector("p").innerText;
-        navigator.clipboard.writeText(text);
-        showToast("已複製到剪貼簿", text);
+        const text = element.querySelector("p")?.innerText || "";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              showToast("已複製到剪貼簿", text);
+            })
+            .catch(() => {
+              showToast("已複製到剪貼簿", text);
+            });
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+          showToast("已複製到剪貼簿", text);
+        }
       };
 
       function showToast(title, msg) {
