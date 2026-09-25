@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="zh-Hant" class="h-full bg-slate-950 text-slate-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>中樂團 IG Reels 宣傳策劃與時間軸</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "Plus Jakarta Sans",
+                "PingFang SC",
+                "Microsoft YaHei",
+                "Heiti SC",
+                "Noto Sans TC",
+                "Noto Sans SC",
+                "sans-serif",
+              ],
+              heiti: [
+                "PingFang SC",
+                "Microsoft YaHei",
+                "Heiti SC",
+                "Noto Sans TC",
+                "sans-serif",
+              ],
+            },
+            colors: {
+              vermilion: {
+                50: "#fff1f2",
+                100: "#ffe4e6",
+                500: "#e11d48",
+                600: "#be123c",
+                700: "#9f1239",
+                900: "#480b1a",
+              },
+              jade: {
+                400: "#34d399",
+                500: "#10b981",
+                600: "#059669",
+                800: "#065f46",
+                900: "#022c22",
+              },
+              gold: {
+                400: "#fbbf24",
+                500: "#f59e0b",
+                600: "#d97706",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="h-full flex flex-col font-sans antialiased text-slate-200 bg-slate-950 selection:bg-vermilion-500 selection:text-white"
+  >
+    <!-- Top Navigation Bar -->
+    <header
+      class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-30"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-vermilion-600 via-gold-500 to-jade-500 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-vermilion-900/30"
+          >
+            <i class="fa-solid fa-music"></i>
+          </div>
+          <div>
+            <h1
+              class="text-lg font-bold tracking-tight text-white flex items-center gap-2"
+            >
+              絲竹華章
+              <span
+                class="text-xs px-2 py-0.5 rounded-full bg-vermilion-500/20 text-vermilion-400 border border-vermilion-500/30 font-medium"
+                >IG Reels 排期系統</span
+              >
+            </h1>
+            <p class="text-xs text-slate-400">中樂團推廣與多裝置同步協作中心</p>
+          </div>
+        </div>
+
+        <!-- Live Sync Status & Main Actions -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div
+            id="sync-status"
+            class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-slate-800 text-slate-400 border border-slate-700"
+          >
+            <i class="fa-solid fa-arrows-rotate animate-spin text-gold-400"></i>
+            <span>正在連接雲端...</span>
+          </div>
+
+          <button
+            onclick="openPerformanceModal()"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500/10 text-gold-400 hover:bg-gold-500/20 text-xs font-bold transition border border-gold-500/30"
+          >
+            <i class="fa-solid fa-masks-theater text-gold-400"></i>
+            <span class="hidden sm:inline">新增/管理</span>演出
+          </button>
+
+          <button
+            onclick="openHookModal()"
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition border border-slate-700"
+          >
+            <i class="fa-solid fa-lightbulb text-gold-400"></i> 爆點文案庫
+          </button>
+          <button
+            onclick="openModal()"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-vermilion-600 hover:bg-vermilion-500 text-white text-xs font-bold transition shadow-lg shadow-vermilion-600/20 active:scale-95"
+          >
+            <i class="fa-solid fa-plus"></i> 排期新 Reels
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main
+      class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6"
+    >
+      <!-- KPI Dashboard Summary -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div
+          class="glass-panel p-4 rounded-2xl flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs font-medium text-slate-400">已排期總數</p>
+            <p id="stat-total" class="text-2xl font-black text-white mt-1">0</p>
+          </div>
+          <div
+            class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-film text-lg"></i>
+          </div>
+        </div>
+
+        <div
+          class="glass-panel p-4 rounded-2xl flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs font-medium text-slate-400">已正式發佈</p>
+            <p
+              id="stat-published"
+              class="text-2xl font-black text-jade-400 mt-1"
+            >
+              0
+            </p>
+          </div>
+          <div
+            class="w-10 h-10 rounded-xl bg-jade-500/10 text-jade-400 border border-jade-500/20 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-circle-check text-lg"></i>
+          </div>
+        </div>
+
+        <div
+          class="glass-panel p-4 rounded-2xl flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs font-medium text-slate-400">剪輯中 / 待發佈</p>
+            <p id="stat-ready" class="text-2xl font-black text-gold-400 mt-1">
+              0
+            </p>
+          </div>
+          <div
+            class="w-10 h-10 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-sliders text-lg"></i>
+          </div>
+        </div>
+
+        <!-- Top Interactive Concert Card -->
+        <div
+          onclick="openPerformanceModal()"
+          class="glass-panel p-4 rounded-2xl flex items-center justify-between cursor-pointer hover:border-vermilion-500/50 transition group"
+        >
+          <div class="flex-1 pr-2">
+            <div class="flex items-center gap-1.5">
+              <span
+                class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-vermilion-500/20 text-vermilion-400 border border-vermilion-500/30 uppercase"
+                id="stat-concert-countdown"
+                >進行中</span
+              >
+              <span
+                class="text-[10px] text-slate-400 group-hover:text-vermilion-400 transition"
+                >點擊切換/新增
+                <i class="fa-solid fa-chevron-right text-[8px]"></i
+              ></span>
+            </div>
+            <p
+              id="stat-concert-title"
+              class="text-xs font-bold text-white truncate mt-1"
+            >
+              《秋實樂韻》年度音樂會
+            </p>
+            <p
+              id="stat-concert-date"
+              class="text-[11px] font-semibold text-vermilion-400"
+            >
+              2026年10月28日
+            </p>
+            <p
+              id="stat-concert-venue"
+              class="text-[10px] text-slate-400 truncate"
+            >
+              <i class="fa-solid fa-location-dot text-gold-400 mr-1"></i
+              >香港大會堂音樂廳
+            </p>
+          </div>
+          <div
+            class="w-10 h-10 rounded-xl bg-vermilion-500/10 text-vermilion-400 border border-vermilion-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition"
+          >
+            <i class="fa-solid fa-calendar-star text-lg"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar & View Mode Switcher -->
+      <div
+        class="glass-panel p-4 rounded-2xl flex flex-col md:flex-row gap-4 items-center justify-between"
+      >
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <!-- Search -->
+          <div class="relative flex-1 md:w-64">
+            <i
+              class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"
+            ></i>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="搜尋樂曲、樂器、筆記..."
+              oninput="renderApp()"
+              class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-vermilion-500 transition"
+            />
+          </div>
+
+          <!-- Pillar Filter -->
+          <select
+            id="filter-pillar"
+            onchange="renderApp()"
+            class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-vermilion-500 transition"
+          >
+            <option value="all">所有內容分類</option>
+            <option value="Money Note">高能演奏 (Money Note)</option>
+            <option value="Culture Spotlight">樂器與文化科普</option>
+            <option value="Relatable BTS">團練日常與花絮</option>
+            <option value="Event Push">音樂會售票宣傳</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select
+            id="filter-status"
+            onchange="renderApp()"
+            class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-vermilion-500 transition"
+          >
+            <option value="all">所有製作進度</option>
+            <option value="Idea">💡 創意點子</option>
+            <option value="Filmed">📹 已拍攝素材</option>
+            <option value="Edited">✂️ 已剪輯完成</option>
+            <option value="Scheduled">📅 已在IG排期</option>
+            <option value="Published">🚀 已正式發佈</option>
+          </select>
+        </div>
+
+        <!-- View Modes & Preset Generator -->
+        <div
+          class="flex items-center gap-2 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-800"
+        >
+          <button
+            onclick="loadConcertCampaignTemplate()"
+            class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-gold-400 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition border border-gold-500/20"
+          >
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 載入4週宣傳企劃範本
+          </button>
+
+          <div
+            class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800"
+          >
+            <button
+              id="view-btn-timeline"
+              onclick="switchView('timeline')"
+              class="px-2.5 py-1 rounded-lg text-xs font-medium bg-vermilion-600 text-white transition"
+            >
+              <i class="fa-solid fa-timeline mr-1"></i> 垂直時間軸
+            </button>
+            <button
+              id="view-btn-horizontal"
+              onclick="switchView('horizontal')"
+              class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition"
+            >
+              <i class="fa-solid fa-flag mr-1"></i> 旗幟時間軸
+            </button>
+            <button
+              id="view-btn-grid"
+              onclick="switchView('grid')"
+              class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition"
+            >
+              <i class="fa-solid fa-grip mr-1"></i> 卡片網格
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Content Area -->
+      <div id="content-container" class="space-y-6">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </main>
+
+    <!-- Modal: Create / Manage Performances (演出管理) -->
+    <div
+      id="performance-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="glass-panel max-w-xl w-full rounded-2xl border border-slate-800 overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50"
+        >
+          <h3 class="font-bold text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-masks-theater text-gold-400"></i> 樂團音樂會 /
+            演出項目管理
+          </h3>
+          <button
+            onclick="closePerformanceModal()"
+            class="text-slate-400 hover:text-white text-sm"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="p-6 overflow-y-auto space-y-6 text-xs">
+          <!-- Add New Performance Form -->
+          <form
+            id="performance-form"
+            onsubmit="handlePerformanceSubmit(event)"
+            class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800"
+          >
+            <h4
+              id="perf-form-title"
+              class="font-bold text-white text-xs flex items-center gap-1.5"
+            >
+              <i class="fa-solid fa-plus-circle text-vermilion-400"></i>
+              新增音樂會 / 演出
+            </h4>
+            <input type="hidden" id="perf-id" />
+
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >演出名稱 *</label
+              >
+              <input
+                type="text"
+                id="perf-title"
+                required
+                placeholder="例如：《秋實樂韻》年度大型音樂會"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-400 font-medium mb-1"
+                  >演出日期 *</label
+                >
+                <input
+                  type="date"
+                  id="perf-date"
+                  required
+                  class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+                />
+              </div>
+              <div>
+                <label class="block text-slate-400 font-medium mb-1"
+                  >演出地點 / 音樂廳</label
+                >
+                <input
+                  type="text"
+                  id="perf-venue"
+                  placeholder="例如：香港大會堂音樂廳"
+                  class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >備註 / 售票網址 / 曲目亮點</label
+              >
+              <input
+                type="text"
+                id="perf-notes"
+                placeholder="例如：門票已於城市售票網公開發售；焦點曲目《十面埋伏》"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+
+            <div class="flex justify-end gap-2 pt-1">
+              <button
+                type="button"
+                onclick="resetPerfForm()"
+                class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700"
+              >
+                重置
+              </button>
+              <button
+                type="submit"
+                class="px-4 py-1.5 rounded-lg bg-vermilion-600 hover:bg-vermilion-500 text-white font-bold transition"
+              >
+                保存演出數據
+              </button>
+            </div>
+          </form>
+
+          <!-- Performance List -->
+          <div>
+            <h4
+              class="font-bold text-slate-300 text-xs mb-3 flex items-center gap-1.5"
+            >
+              <i class="fa-solid fa-list-ul text-gold-400"></i> 已錄入演出列表
+              （點擊切換當前主推音樂會）
+            </h4>
+            <div id="performance-list-container" class="space-y-2">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Add / Edit Reel -->
+    <div
+      id="reel-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="glass-panel max-w-lg w-full rounded-2xl border border-slate-800 overflow-hidden shadow-2xl transform transition-all"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50"
+        >
+          <h3
+            id="modal-title"
+            class="font-bold text-white text-sm flex items-center gap-2"
+          >
+            <i class="fa-solid fa-clapperboard text-vermilion-500"></i> 排期新
+            Instagram Reel
+          </h3>
+          <button
+            onclick="closeModal()"
+            class="text-slate-400 hover:text-white text-sm"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form
+          id="reel-form"
+          onsubmit="handleFormSubmit(event)"
+          class="p-6 space-y-4 text-xs"
+        >
+          <input type="hidden" id="form-id" />
+
+          <div>
+            <label class="block text-slate-400 font-medium mb-1"
+              >Reel 標題 / 焦點樂曲 *</label
+            >
+            <input
+              type="text"
+              id="form-title"
+              required
+              placeholder="例如：古箏《瑤族舞曲》搖指速度挑戰"
+              class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >預計發佈日期 *</label
+              >
+              <input
+                type="date"
+                id="form-date"
+                required
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >發佈時間</label
+              >
+              <input
+                type="time"
+                id="form-time"
+                value="18:30"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >內容分類 *</label
+              >
+              <select
+                id="form-pillar"
+                required
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              >
+                <option value="Money Note">高能演奏 (Money Note)</option>
+                <option value="Culture Spotlight">樂器與文化科普</option>
+                <option value="Relatable BTS">團練日常與花絮</option>
+                <option value="Event Push">音樂會售票宣傳</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >示範樂器</label
+              >
+              <select
+                id="form-instrument"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              >
+                <option value="Guzheng (古箏)">古箏 (Guzheng)</option>
+                <option value="Erhu (二胡)">二胡 (Erhu)</option>
+                <option value="Pipa (琵琶)">琵琶 (Pipa)</option>
+                <option value="Dizi (笛子)">笛子 (Dizi)</option>
+                <option value="Sheng (笙)">笙 (Sheng)</option>
+                <option value="Yangqin (揚琴)">揚琴 (Yangqin)</option>
+                <option value="Ruan (阮)">阮 (Ruan)</option>
+                <option value="Full Ensemble (全團合奏)">
+                  全團合奏 (Full Ensemble)
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-400 font-medium mb-1"
+              >IG Reel 參考 / 參照音訊連結</label
+            >
+            <div class="relative">
+              <i
+                class="fa-brands fa-instagram absolute left-3 top-1/2 -translate-y-1/2 text-pink-500 text-sm"
+              ></i>
+              <input
+                type="url"
+                id="form-ig-link"
+                placeholder="https://www.instagram.com/reel/..."
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+            <p class="text-[10px] text-slate-500 mt-1">
+              可填寫熱門音訊對標鏈接或已發佈之 IG Reel 網址。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >製作進度</label
+              >
+              <select
+                id="form-status"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              >
+                <option value="Idea">💡 創意點子</option>
+                <option value="Filmed">📹 已拍攝素材</option>
+                <option value="Edited">✂️ 已剪輯完成</option>
+                <option value="Scheduled">📅 已在IG排期</option>
+                <option value="Published">🚀 已正式發佈</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-400 font-medium mb-1"
+                >負責團員 / 創作者</label
+              >
+              <input
+                type="text"
+                id="form-assignee"
+                placeholder="例如：小美 (古箏組)"
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-400 font-medium mb-1"
+              >吸睛文案 (Hook) / 樂器筆記</label
+            >
+            <textarea
+              id="form-notes"
+              rows="3"
+              placeholder="開頭Hook：『你敢相信這聲音是21根絲弦發出的嗎？』文案：門票連結見 BIO！"
+              class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-vermilion-500"
+            ></textarea>
+          </div>
+
+          <div
+            class="pt-3 border-t border-slate-800 flex items-center justify-end gap-2"
+          >
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium"
+            >
+              取消
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 rounded-xl bg-vermilion-600 hover:bg-vermilion-500 text-white font-bold transition"
+            >
+              儲存排期計劃
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Hook Generator Helper -->
+    <div
+      id="hook-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="glass-panel max-w-2xl w-full rounded-2xl border border-slate-800 overflow-hidden shadow-2xl"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/50"
+        >
+          <h3 class="font-bold text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-lightbulb text-gold-400"></i> 中樂主題 IG Reel
+            爆點文案靈感庫
+          </h3>
+          <button
+            onclick="closeHookModal()"
+            class="text-slate-400 hover:text-white text-sm"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto text-xs">
+          <p class="text-slate-400">點擊下方任一爆點範本，即可複製至剪貼簿：</p>
+
+          <div class="space-y-3">
+            <div
+              onclick="copyHookText(this)"
+              class="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-vermilion-500/50 cursor-pointer transition group"
+            >
+              <div
+                class="flex justify-between font-semibold text-gold-400 mb-1"
+              >
+                <span>高能演奏 / 爆點 Hook</span>
+                <span
+                  class="text-[10px] text-slate-500 group-hover:text-vermilion-400"
+                  >點擊複製</span
+                >
+              </div>
+              <p class="text-slate-200 font-medium">
+                "注意第8秒的節奏爆發... 🎵 這是傳承兩千年的東方震撼。"
+              </p>
+            </div>
+
+            <div
+              onclick="copyHookText(this)"
+              class="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-vermilion-500/50 cursor-pointer transition group"
+            >
+              <div
+                class="flex justify-between font-semibold text-jade-400 mb-1"
+              >
+                <span>二胡 / 樂器好奇心 Hook</span>
+                <span
+                  class="text-[10px] text-slate-500 group-hover:text-vermilion-400"
+                  >點擊複製</span
+                >
+              </div>
+              <p class="text-slate-200 font-medium">
+                "為什麼這把只有兩條弦的樂器，拉出來的聲音比整個管弦樂團還拉扯情緒？"
+              </p>
+            </div>
+
+            <div
+              onclick="copyHookText(this)"
+              class="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-vermilion-500/50 cursor-pointer transition group"
+            >
+              <div
+                class="flex justify-between font-semibold text-indigo-400 mb-1"
+              >
+                <span>團練日常 / 花絮 Hook</span>
+                <span
+                  class="text-[10px] text-slate-500 group-hover:text-vermilion-400"
+                  >點擊複製</span
+                >
+              </div>
+              <p class="text-slate-200 font-medium">
+                "第一視角：身為笛子手，排練前花10分鐘貼笛膜結果一吹就破的日常
+                😭"
+              </p>
+            </div>
+
+            <div
+              onclick="copyHookText(this)"
+              class="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-vermilion-500/50 cursor-pointer transition group"
+            >
+              <div
+                class="flex justify-between font-semibold text-vermilion-400 mb-1"
+              >
+                <span>音樂會 / 票務宣傳 Hook</span>
+                <span
+                  class="text-[10px] text-slate-500 group-hover:text-vermilion-400"
+                  >點擊複製</span
+                >
+              </div>
+              <p class="text-slate-200 font-medium">
+                "耳機裡的國樂 vs 30位演奏家現場齊奏的震撼 🔥
+                門票連結在個人檔案！"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none"
+    >
+      <div
+        class="glass-panel border-l-4 border-l-jade-500 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3"
+      >
+        <i
+          id="toast-icon"
+          class="fa-solid fa-circle-check text-jade-400 text-lg"
+        ></i>
+        <div>
+          <p id="toast-title" class="text-xs font-bold text-white">成功</p>
+          <p id="toast-msg" class="text-[11px] text-slate-400">
+            操作已順利保存。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        signInWithCustomToken,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        doc,
+        setDoc,
+        deleteDoc,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // Application Variables
+      let currentView = "timeline";
+      let reels = [];
+      let performances = [];
+      let activePerformanceId = null;
+      let db = null;
+      let auth = null;
+
+      // No hardcoded seed dataset in code
+      const defaultReels = [];
+      const defaultPerformances = [];
+
+      async function initFirebase() {
+        // 1. App Identifier
+        const appId =
+          typeof __app_id !== "undefined" ? __app_id : "timelineplanner_ig";
+
+        // Custom config override container
+        const customFirebaseConfig = {
+          apiKey: "AIzaSyCHrc_pBG6hqkehF9gtCFBKJAvd12L2kXs",
+          authDomain: "timelineplanner-ig.firebaseapp.com",
+          projectId: "timelineplanner-ig",
+          storageBucket: "timelineplanner-ig.firebasestorage.app",
+          messagingSenderId: "177307342599",
+          appId: "1:177307342599:web:088ea4a08f3136972317a2",
+        };
+
+        // Automatically use injected config if available
+        const firebaseConfig =
+          typeof __firebase_config !== "undefined"
+            ? JSON.parse(__firebase_config)
+            : customFirebaseConfig.apiKey
+              ? customFirebaseConfig
+              : null;
+
+        if (!firebaseConfig) {
+          console.warn(
+            "Firebase Config not found. Falling back to local mode.",
+          );
+          reels = JSON.parse(localStorage.getItem("ensemble_ig_reels")) || [];
+          performances =
+            JSON.parse(localStorage.getItem("ensemble_ig_performances")) || [];
+          updateSyncStatus("local");
+          renderApp();
+          return;
+        }
+
+        try {
+          const app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+
+          // Authenticate before querying (Mandatory Rule 3)
+          if (
+            typeof __initial_auth_token !== "undefined" &&
+            __initial_auth_token
+          ) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+
+          const user = auth.currentUser;
+          if (!user) return;
+
+          updateSyncStatus("online");
+
+          // Subscribe to Firestore collections with strict path (Mandatory Rule 1 & Rule 2)
+          const reelsRef = collection(
+            db,
+            "artifacts",
+            appId,
+            "public",
+            "data",
+            "reels",
+          );
+          const perfRef = collection(
+            db,
+            "artifacts",
+            appId,
+            "public",
+            "data",
+            "performances",
+          );
+
+          onSnapshot(
+            reelsRef,
+            (snapshot) => {
+              reels = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              renderApp();
+            },
+            (error) => {
+              console.error("Reels snapshot error:", error);
+            },
+          );
+
+          onSnapshot(
+            perfRef,
+            (snapshot) => {
+              performances = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              renderApp();
+            },
+            (error) => {
+              console.error("Performances snapshot error:", error);
+            },
+          );
+        } catch (err) {
+          console.error("Firebase initialization failed:", err);
+          reels = JSON.parse(localStorage.getItem("ensemble_ig_reels")) || [];
+          performances =
+            JSON.parse(localStorage.getItem("ensemble_ig_performances")) || [];
+          updateSyncStatus("local");
+          renderApp();
+        }
+      }
+
+      function updateSyncStatus(status) {
+        const statusEl = document.getElementById("sync-status");
+        if (!statusEl) return;
+        if (status === "online") {
+          statusEl.innerHTML = `<i class="fa-solid fa-cloud text-jade-400"></i><span class="text-jade-400">雲端即時同步中</span>`;
+        } else {
+          statusEl.innerHTML = `<i class="fa-solid fa-hard-drive text-amber-400"></i><span class="text-amber-400">本機儲存模式</span>`;
+        }
+        statusEl.classList.remove("hidden");
+        statusEl.classList.add("flex");
+      }
+
+      async function saveReelData(reelObj) {
+        if (db) {
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "reels",
+              reelObj.id,
+            );
+            await setDoc(docRef, reelObj);
+          } catch (e) {
+            console.error("Error saving reel:", e);
+          }
+        } else {
+          const idx = reels.findIndex((r) => r.id === reelObj.id);
+          if (idx >= 0) reels[idx] = reelObj;
+          else reels.push(reelObj);
+          localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
+          renderApp();
+        }
+      }
+
+      async function deleteReelData(reelId) {
+        if (db) {
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "reels",
+              reelId,
+            );
+            await deleteDoc(docRef);
+          } catch (e) {
+            console.error("Error deleting reel:", e);
+          }
+        } else {
+          reels = reels.filter((r) => r.id !== reelId);
+          localStorage.setItem("ensemble_ig_reels", JSON.stringify(reels));
+          renderApp();
+        }
+      }
+
+      async function savePerformanceData(perfObj) {
+        if (db) {
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "performances",
+              perfObj.id,
+            );
+            await setDoc(docRef, perfObj);
+          } catch (e) {
+            console.error("Error saving performance:", e);
+          }
+        } else {
+          const idx = performances.findIndex((p) => p.id === perfObj.id);
+          if (idx >= 0) performances[idx] = perfObj;
+          else performances.push(perfObj);
+          localStorage.setItem(
+            "ensemble_ig_performances",
+            JSON.stringify(performances),
+          );
+          renderApp();
+        }
+      }
+
+      async function deletePerformanceData(perfId) {
+        if (db) {
+          try {
+            const docRef = doc(
+              db,
+              "artifacts",
+              appId,
+              "public",
+              "data",
+              "performances",
+              perfId,
+            );
+            await deleteDoc(docRef);
+          } catch (e) {
+            console.error("Error deleting performance:", e);
+          }
+        } else {
+          performances = performances.filter((p) => p.id !== perfId);
+          localStorage.setItem(
+            "ensemble_ig_performances",
+            JSON.stringify(performances),
+          );
+          renderApp();
+        }
+      }
+
+      function renderApp() {
+        renderStats();
+        renderActiveConcertCard();
+
+        const searchVal = (
+          document.getElementById("search-input")?.value || ""
+        ).toLowerCase();
+        const pillarFilter =
+          document.getElementById("filter-pillar")?.value || "all";
+        const statusFilter =
+          document.getElementById("filter-status")?.value || "all";
+
+        let filtered = reels.filter((reel) => {
+          const matchSearch =
+            reel.title.toLowerCase().includes(searchVal) ||
+            reel.instrument.toLowerCase().includes(searchVal) ||
+            (reel.notes && reel.notes.toLowerCase().includes(searchVal));
+          const matchPillar =
+            pillarFilter === "all" || reel.pillar === pillarFilter;
+          const matchStatus =
+            statusFilter === "all" || reel.status === statusFilter;
+          return matchSearch && matchPillar && matchStatus;
+        });
+
+        // Sort chronological
+        filtered.sort(
+          (a, b) =>
+            new Date(a.date + "T" + (a.time || "00:00")) -
+            new Date(b.date + "T" + (b.time || "00:00")),
+        );
+
+        const container = document.getElementById("content-container");
+        if (!container) return;
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+          <div class="glass-panel p-12 text-center rounded-2xl space-y-3">
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 text-2xl">
+              <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-300">未找到符合條件的 IG Reels 排期</h3>
+            <p class="text-xs text-slate-500">嘗試調整搜尋關鍵字，或點擊上方「排期新 Reels」按鈕。</p>
+          </div>
+        `;
+          return;
+        }
+
+        if (currentView === "timeline") {
+          renderVerticalTimeline(filtered, container);
+        } else if (currentView === "horizontal") {
+          renderHorizontalTimeline(filtered, container);
+        } else {
+          renderGridView(filtered, container);
+        }
+      }
+
+      function renderStats() {
+        document.getElementById("stat-total").innerText = reels.length;
+        document.getElementById("stat-published").innerText = reels.filter(
+          (r) => r.status === "Published",
+        ).length;
+        document.getElementById("stat-ready").innerText = reels.filter(
+          (r) =>
+            r.status === "Edited" ||
+            r.status === "Scheduled" ||
+            r.status === "Filmed",
+        ).length;
+      }
+
+      function renderActiveConcertCard() {
+        if (!performances || performances.length === 0) return;
+        let activePerf =
+          performances.find((p) => p.id === activePerformanceId) ||
+          performances[0];
+
+        document.getElementById("stat-concert-title").innerText =
+          activePerf.title;
+        document.getElementById("stat-concert-date").innerText =
+          activePerf.date;
+        document.getElementById("stat-concert-venue").innerText =
+          activePerf.venue || "未定場地";
+
+        // Countdown calculation
+        const targetDate = new Date(activePerf.date);
+        const today = new Date();
+        const diffTime = targetDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const cdEl = document.getElementById("stat-concert-countdown");
+        if (diffDays > 0) {
+          cdEl.innerText = `倒數 ${diffDays} 天`;
+          cdEl.className =
+            "text-[10px] font-bold px-1.5 py-0.5 rounded bg-vermilion-500/20 text-vermilion-400 border border-vermilion-500/30 uppercase";
+        } else if (diffDays === 0) {
+          cdEl.innerText = "今日演出";
+          cdEl.className =
+            "text-[10px] font-bold px-1.5 py-0.5 rounded bg-jade-500/20 text-jade-400 border border-jade-500/30 uppercase";
+        } else {
+          cdEl.innerText = "已圓滿落幕";
+          cdEl.className =
+            "text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase";
+        }
+      }
+
+      function renderVerticalTimeline(data, container) {
+        let html = `<div class="relative pl-6 md:pl-8 border-l-2 border-slate-800 space-y-8 my-4">`;
+
+        data.forEach((item) => {
+          const pillarBadge = getPillarBadge(item.pillar);
+          const statusBadge = getStatusBadge(item.status);
+
+          html += `
+          <div class="relative group">
+            <!-- Timeline Dot -->
+            <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-vermilion-500 group-hover:bg-vermilion-500 transition-colors flex items-center justify-center">
+              <div class="w-1.5 h-1.5 rounded-full bg-vermilion-400 group-hover:bg-white"></div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="glass-panel p-5 rounded-2xl hover:border-slate-700 transition space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-vermilion-400"><i class="fa-regular fa-calendar-days mr-1"></i>${item.date}</span>
+                  <span class="text-xs text-slate-500">${item.time || ""}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  ${pillarBadge}
+                  ${statusBadge}
+                </div>
+              </div>
+
+              <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="space-y-1 flex-1">
+                  <h3 class="text-sm font-bold text-white group-hover:text-vermilion-400 transition">${item.title}</h3>
+                  <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <span><i class="fa-solid fa-guitar text-gold-400 mr-1"></i>${item.instrument}</span>
+                    ${item.assignee ? `<span><i class="fa-solid fa-user text-indigo-400 mr-1"></i>${item.assignee}</span>` : ""}
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  ${item.igLink ? `<a href="${item.igLink}" target="_blank" class="px-2.5 py-1.5 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 border border-pink-500/20 rounded-lg text-xs font-semibold transition flex items-center gap-1"><i class="fa-brands fa-instagram"></i> 參考音訊</a>` : ""}
+                  <button onclick="editReel('${item.id}')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium transition"><i class="fa-solid fa-pen"></i></button>
+                  <button onclick="deleteReel('${item.id}')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-red-950/50 text-red-400 hover:text-red-300 rounded-lg text-xs font-medium transition"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </div>
+
+              ${
+                item.notes
+                  ? `
+                <div class="p-3 bg-slate-900/80 rounded-xl text-xs text-slate-300 border border-slate-800/80">
+                  <span class="font-bold text-gold-400 mr-1"><i class="fa-solid fa-lightbulb"></i> 爆點筆記:</span> ${item.notes}
+                </div>
+              `
+                  : ""
+              }
+            </div>
+          </div>
+        `;
+        });
+
+        html += `</div>`;
+        container.innerHTML = html;
+      }
+
+      function renderHorizontalTimeline(data, container) {
+        let html = `
+        <div class="overflow-x-auto pb-4 hide-scrollbar">
+          <div class="flex gap-4 min-w-max p-2">
+      `;
+
+        data.forEach((item, index) => {
+          const statusBadge = getStatusBadge(item.status);
+          html += `
+          <div class="w-72 glass-panel p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4 hover:border-vermilion-500/40 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">#0${index + 1}</span>
+                <span class="font-bold text-vermilion-400">${item.date}</span>
+              </div>
+              <h4 class="font-bold text-white text-xs line-clamp-2 h-8">${item.title}</h4>
+              <p class="text-[11px] text-slate-400"><i class="fa-solid fa-music text-gold-400 mr-1"></i>${item.instrument}</p>
+            </div>
+
+            <div class="space-y-2 pt-2 border-t border-slate-800">
+              <div class="flex justify-between items-center text-[10px]">
+                <span>${getPillarBadge(item.pillar)}</span>
+                <span>${statusBadge}</span>
+              </div>
+              <div class="flex justify-end gap-1.5">
+                <button onclick="editReel('${item.id}')" class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[10px] hover:bg-slate-700">編輯</button>
+                <button onclick="deleteReel('${item.id}')" class="px-2 py-1 bg-slate-800 text-red-400 rounded text-[10px] hover:bg-red-950">刪除</button>
+              </div>
+            </div>
+          </div>
+        `;
+        });
+
+        html += `</div></div>`;
+        container.innerHTML = html;
+      }
+
+      function renderGridView(data, container) {
+        let html = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
+
+        data.forEach((item) => {
+          html += `
+          <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between space-y-4 hover:border-slate-700 transition group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-vermilion-400"><i class="fa-regular fa-clock mr-1"></i>${item.date} ${item.time || ""}</span>
+                ${getStatusBadge(item.status)}
+              </div>
+              <h3 class="text-sm font-bold text-white group-hover:text-vermilion-400 transition">${item.title}</h3>
+              <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800"><i class="fa-solid fa-guitar text-gold-400 mr-1"></i>${item.instrument}</span>
+              </div>
+              ${item.notes ? `<p class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 line-clamp-3">${item.notes}</p>` : ""}
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <div>${getPillarBadge(item.pillar)}</div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="editReel('${item.id}')" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs transition"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="deleteReel('${item.id}')" class="p-1.5 bg-slate-800 hover:bg-red-950/50 text-red-400 rounded-lg text-xs transition"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+        `;
+        });
+
+        html += `</div>`;
+        container.innerHTML = html;
+      }
+
+      function getPillarBadge(pillar) {
+        switch (pillar) {
+          case "Money Note":
+            return `<span class="px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-[10px] font-bold">高能演奏</span>`;
+          case "Culture Spotlight":
+            return `<span class="px-2 py-0.5 rounded-full bg-jade-500/20 text-jade-400 border border-jade-500/30 text-[10px] font-bold">樂器科普</span>`;
+          case "Relatable BTS":
+            return `<span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[10px] font-bold">團練日常</span>`;
+          case "Event Push":
+            return `<span class="px-2 py-0.5 rounded-full bg-vermilion-500/20 text-vermilion-400 border border-vermilion-500/30 text-[10px] font-bold">音樂會宣傳</span>`;
+          default:
+            return `<span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px]">${pillar}</span>`;
+        }
+      }
+
+      function getStatusBadge(status) {
+        switch (status) {
+          case "Idea":
+            return `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 text-[10px]">💡 點子</span>`;
+          case "Filmed":
+            return `<span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 text-[10px]">📹 已拍攝</span>`;
+          case "Edited":
+            return `<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 text-[10px]">✂️ 已剪輯</span>`;
+          case "Scheduled":
+            return `<span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800 text-[10px]">📅 已排期</span>`;
+          case "Published":
+            return `<span class="px-2 py-0.5 rounded bg-jade-950 text-jade-300 border border-jade-800 text-[10px]">🚀 已發佈</span>`;
+          default:
+            return `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">${status}</span>`;
+        }
+      }
+
+      window.switchView = function (view) {
+        currentView = view;
+        ["timeline", "horizontal", "grid"].forEach((v) => {
+          const btn = document.getElementById(`view-btn-${v}`);
+          if (!btn) return;
+          if (v === view) {
+            btn.className =
+              "px-2.5 py-1 rounded-lg text-xs font-medium bg-vermilion-600 text-white transition";
+          } else {
+            btn.className =
+              "px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition";
+          }
+        });
+        renderApp();
+      };
+
+      window.openModal = function (editId = null) {
+        const modal = document.getElementById("reel-modal");
+        const form = document.getElementById("reel-form");
+        form.reset();
+
+        if (editId) {
+          const reel = reels.find((r) => r.id === editId);
+          if (reel) {
+            document.getElementById("modal-title").innerHTML =
+              `<i class="fa-solid fa-pen text-vermilion-500"></i> 編輯 Instagram Reel`;
+            document.getElementById("form-id").value = reel.id;
+            document.getElementById("form-title").value = reel.title;
+            document.getElementById("form-date").value = reel.date;
+            document.getElementById("form-time").value = reel.time || "18:30";
+            document.getElementById("form-pillar").value = reel.pillar;
+            document.getElementById("form-instrument").value = reel.instrument;
+            document.getElementById("form-ig-link").value = reel.igLink || "";
+            document.getElementById("form-status").value = reel.status;
+            document.getElementById("form-assignee").value =
+              reel.assignee || "";
+            document.getElementById("form-notes").value = reel.notes || "";
+          }
+        } else {
+          document.getElementById("modal-title").innerHTML =
+            `<i class="fa-solid fa-clapperboard text-vermilion-500"></i> 排期新 Instagram Reel`;
+          document.getElementById("form-id").value = "";
+          document.getElementById("form-date").value = new Date()
+            .toISOString()
+            .split("T")[0];
+        }
+
+        modal.classList.remove("hidden");
+      };
+
+      window.closeModal = function () {
+        document.getElementById("reel-modal").classList.add("hidden");
+      };
+
+      window.handleFormSubmit = async function (e) {
+        e.preventDefault();
+        const id =
+          document.getElementById("form-id").value || "reel-" + Date.now();
+        const reelObj = {
+          id,
+          title: document.getElementById("form-title").value,
+          date: document.getElementById("form-date").value,
+          time: document.getElementById("form-time").value,
+          pillar: document.getElementById("form-pillar").value,
+          instrument: document.getElementById("form-instrument").value,
+          igLink: document.getElementById("form-ig-link").value,
+          status: document.getElementById("form-status").value,
+          assignee: document.getElementById("form-assignee").value,
+          notes: document.getElementById("form-notes").value,
+        };
+
+        await saveReelData(reelObj);
+        closeModal();
+        showToast("儲存成功", "IG Reel 內容排期已順利保存。");
+      };
+
+      window.editReel = function (id) {
+        window.openModal(id);
+      };
+
+      window.deleteReel = async function (id) {
+        await deleteReelData(id);
+        showToast("刪除成功", "已從排期集中移除該項目。");
+      };
+
+      window.openPerformanceModal = function () {
+        renderPerformanceList();
+        document.getElementById("performance-modal").classList.remove("hidden");
+      };
+
+      window.closePerformanceModal = function () {
+        document.getElementById("performance-modal").classList.add("hidden");
+      };
+
+      window.resetPerfForm = function () {
+        document.getElementById("performance-form").reset();
+        document.getElementById("perf-id").value = "";
+        document.getElementById("perf-form-title").innerHTML =
+          `<i class="fa-solid fa-plus-circle text-vermilion-400"></i> 新增音樂會 / 演出`;
+      };
+
+      window.handlePerformanceSubmit = async function (e) {
+        e.preventDefault();
+        const id =
+          document.getElementById("perf-id").value || "perf-" + Date.now();
+        const perfObj = {
+          id,
+          title: document.getElementById("perf-title").value,
+          date: document.getElementById("perf-date").value,
+          venue: document.getElementById("perf-venue").value,
+          notes: document.getElementById("perf-notes").value,
+        };
+
+        await savePerformanceData(perfObj);
+        resetPerfForm();
+        renderPerformanceList();
+        showToast("演出數據已儲存", "音樂會資訊更新成功。");
+      };
+
+      function renderPerformanceList() {
+        const listContainer = document.getElementById(
+          "performance-list-container",
+        );
+        if (!listContainer) return;
+
+        if (!performances || performances.length === 0) {
+          listContainer.innerHTML = `<p class="text-slate-500 py-2">目前無音樂會數據。</p>`;
+          return;
+        }
+
+        let html = "";
+        performances.forEach((p) => {
+          const isActive = p.id === activePerformanceId;
+          html += `
+          <div class="p-3 rounded-xl border ${isActive ? "bg-vermilion-900/30 border-vermilion-500/50" : "bg-slate-900 border-slate-800"} flex items-center justify-between">
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-xs">${p.title}</span>
+                ${isActive ? `<span class="px-1.5 py-0.2 rounded bg-vermilion-500 text-white text-[9px]">主推中</span>` : ""}
+              </div>
+              <p class="text-[10px] text-slate-400"><i class="fa-regular fa-calendar mr-1"></i>${p.date} | ${p.venue || "未指定地點"}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              ${!isActive ? `<button onclick="selectActivePerformance('${p.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-gold-400 text-[10px]">設為主推</button>` : ""}
+              <button onclick="deletePerformance('${p.id}')" class="p-1 text-slate-500 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        });
+        listContainer.innerHTML = html;
+      }
+
+      window.selectActivePerformance = function (id) {
+        activePerformanceId = id;
+        renderPerformanceList();
+        renderApp();
+        showToast("已切換主推演出", "頁首倒數面板已更新為該音樂會。");
+      };
+
+      window.deletePerformance = async function (id) {
+        await deletePerformanceData(id);
+        if (activePerformanceId === id)
+          activePerformanceId = performances[0]?.id || null;
+        renderPerformanceList();
+        renderApp();
+      };
+
+      window.loadConcertCampaignTemplate = async function () {
+        const today = new Date();
+        const dateStr = (days) => {
+          const d = new Date(today);
+          d.setDate(d.getDate() + days);
+          return d.toISOString().split("T")[0];
+        };
+
+        const template = [
+          {
+            id: "tmpl-1",
+            title: "倒數4週：樂團首席亮相（高能合奏切片）",
+            date: dateStr(1),
+            time: "18:00",
+            pillar: "Money Note",
+            instrument: "Full Ensemble (全團合奏)",
+            status: "Scheduled",
+            assignee: "宣傳小組",
+            notes:
+              "Hook：『當這音符響起時，你就知道音樂會倒數一個月了！』門票連結點 BIO。",
+          },
+          {
+            id: "tmpl-2",
+            title: "倒數3週：樂器趣味冷知識（吹管組笛膜特寫）",
+            date: dateStr(8),
+            time: "19:00",
+            pillar: "Culture Spotlight",
+            instrument: "Dizi (笛子)",
+            status: "Filmed",
+            assignee: "笛子組",
+            notes: "科普阿膠貼笛膜技術，搭配經典曲目《揚鞭催馬運糧忙》高潮。",
+          },
+          {
+            id: "tmpl-3",
+            title: "倒數2週：樂手排練崩潰花絮（快節奏難度挑戰）",
+            date: dateStr(15),
+            time: "17:30",
+            pillar: "Relatable BTS",
+            instrument: "Pipa (琵琶)",
+            status: "Idea",
+            assignee: "琵琶組",
+            notes: "第一視角拍攝指揮加速排練時，弦樂組手指發燙的真實反應！",
+          },
+          {
+            id: "tmpl-4",
+            title: "倒數1週：現場齊奏震撼沉浸試聽（全團終章）",
+            date: dateStr(22),
+            time: "20:00",
+            pillar: "Event Push",
+            instrument: "Full Ensemble (全團合奏)",
+            status: "Idea",
+            assignee: "宣傳小組",
+            notes: "最後搶票警告！戴上耳機感受國樂現場聲場的澎湃。",
+          },
+        ];
+
+        for (let item of template) {
+          await saveReelData(item);
+        }
+        showToast(
+          "已成功載入企劃範本",
+          "4週音樂會宣傳 IG Reels 已自動加入時間軸。",
+        );
+      };
+
+      window.openHookModal = function () {
+        document.getElementById("hook-modal").classList.remove("hidden");
+      };
+
+      window.closeHookModal = function () {
+        document.getElementById("hook-modal").classList.add("hidden");
+      };
+
+      window.copyHookText = function (el) {
+        const p = el.querySelector("p");
+        if (!p) return;
+        const text = p.innerText;
+
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        showToast("已複製到剪貼簿", "可在排期表或 IG 發佈頁面直接貼上。");
+        closeHookModal();
+      };
+
+      function showToast(title, msg) {
+        const toast = document.getElementById("toast");
+        document.getElementById("toast-title").innerText = title;
+        document.getElementById("toast-msg").innerText = msg;
+
+        toast.classList.remove("translate-y-20", "opacity-0");
+        toast.classList.add("translate-y-0", "opacity-100");
+
+        setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-20", "opacity-0");
+        }, 3000);
+      }
+
+      // Attach search listener
+      window.renderApp = renderApp;
+
+      // Start App on Window Load
+      window.onload = function () {
+        initFirebase();
+      };
+    </script>
+  </body>
+</html>
